@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="org.hhxx.ssm.mapper.EmployeeMapper">
+
+    <insert id="add">
+        insert into t_emp(id,name,work_number,password,birthday,
+        startday,gender,marital_status,phone,email,birthplace_province,
+        birthplace_city,political_outlook,dept_id,position_id,role_id) 
+        values
+        (#{id},#{name},#{workNumber},#{password},#{birthday},
+        #{startday},#{gender},#{maritalStatus},#{phone},#{email},#{birthplaceProvince},
+        #{birthplaceCity},#{politicalOutlook},#{deptId},#{positionId},#{roleId})
+    </insert>
+
+  	<select id="findByPhoneAndPassword" resultType="org.hhxx.ssm.entity.Employee">
+  		select * from t_emp where phone=#{phone} and password=#{password}
+  	</select>
+  	
+  	
+</mapper>
