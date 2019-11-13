@@ -8,6 +8,8 @@ public class Salary {
 	private Double baseSalary;
 	private Double insurance;
 	private Double accumulationFund;
+	private Double tax;
+	private Double achievements;
 	private Double reallySalary;
 	private Integer empId;
 
