@@ -18,7 +18,7 @@ public class Salary {
 	}
 
 	public Salary(Integer id, Integer salaryYear, Integer salaryMonth, Double baseSalary, Double insurance,
-			Double accumulationFund, Double reallySalary, Integer empId) {
+			Double accumulationFund, Double tax, Double achievements, Double reallySalary, Integer empId) {
 		super();
 		this.id = id;
 		this.salaryYear = salaryYear;
@@ -26,6 +26,8 @@ public class Salary {
 		this.baseSalary = baseSalary;
 		this.insurance = insurance;
 		this.accumulationFund = accumulationFund;
+		this.tax = tax;
+		this.achievements = achievements;
 		this.reallySalary = reallySalary;
 		this.empId = empId;
 	}
@@ -33,8 +35,8 @@ public class Salary {
 	@Override
 	public String toString() {
 		return "Salary [id=" + id + ", salaryYear=" + salaryYear + ", salaryMonth=" + salaryMonth + ", baseSalary="
-				+ baseSalary + ", insurance=" + insurance + ", accumulationFund=" + accumulationFund + ", reallySalary="
-				+ reallySalary + ", empId=" + empId + "]";
+				+ baseSalary + ", insurance=" + insurance + ", accumulationFund=" + accumulationFund + ", tax=" + tax
+				+ ", achievements=" + achievements + ", reallySalary=" + reallySalary + ", empId=" + empId + "]";
 	}
 
 	public Integer getId() {
@@ -83,6 +85,22 @@ public class Salary {
 
 	public void setAccumulationFund(Double accumulationFund) {
 		this.accumulationFund = accumulationFund;
+	}
+
+	public Double getTax() {
+		return tax;
+	}
+
+	public void setTax(Double tax) {
+		this.tax = tax;
+	}
+
+	public Double getAchievements() {
+		return achievements;
+	}
+
+	public void setAchievements(Double achievements) {
+		this.achievements = achievements;
 	}
 
 	public Double getReallySalary() {
