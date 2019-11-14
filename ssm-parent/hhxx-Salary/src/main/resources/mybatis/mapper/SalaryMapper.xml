@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="org.hhxx.ssm.mapper.SalaryMapper">
+  	
+  	<select id="findByEmp" resultType="org.hhxx.ssm.entity.Salary">
+  		select * from t_salary where emp_id= #{empId}
+  			<if test="salaryYear!=null">
+  				and salary_year = #{salaryYear}
+  			</if>
+  			<if test="salaryMonth!=null">
+  				and salary_month = #{salaryMonth}
+  			</if>
+  	</select>
+  	
+  	 <select id="findByAdmin" resultType="org.hhxx.ssm.entity.Salary">
+  		select * from t_salary
+  			<where>
+  				<if test="deptId!=null">
+  					and emp_id in (select id from t_emp where dept_id = #{deptId})
+  				</if>
+  				<if test="positionId!=null">
+  					and emp_id in (select id from t_emp where position_id = #{positionId})
+  				</if>
+  				<if test="empName!=null">
+  					and emp_id in (select id from t_emp where name like #{empName})
+  				</if>
+  				<if test="empId!=null">
+  					and emp_id = #{empId}
+  				</if>
+  				<if test="salaryYear!=null">
+  					and salary_year = #{salaryYear}
+  				</if>
+  				<if test="startMonth!=null and endMonth!=null">
+  					and #{startMonth} &lt;=salary_month &lt;= #{endMonth}
+  				</if>
+  			</where>
+  	</select>
+  	
+</mapper>
+
+
+
+
+
+
+
+
+
