@@ -126,6 +126,7 @@ create table t_role_permission
 create table t_salary 
 (
    id                   int primary key auto_increment,
+   emp_name				varchar(32),
    salary_year          int,
    salary_month         int,
    base_salary          double,
@@ -166,16 +167,16 @@ insert into t_position values(null,"部门4的职位1","这是部门4的职位1"
 insert into t_position values(null,"部门4的职位2","这是部门4的职位2",8200,1,4);
 insert into t_position values(null,"部门4的职位3","这是部门4的职位3",8300,1,4);
 
-insert into t_emp(name,dept_id,position_id) values("员工1",1,1);
-insert into t_emp(name,dept_id,position_id) values("员工2",1,2);
-insert into t_emp(name,dept_id,position_id) values("员工3",1,3);
-insert into t_emp(name,dept_id,position_id) values("员工4",2,4);
-insert into t_emp(name,dept_id,position_id) values("员工5",2,5);
-insert into t_emp(name,dept_id,position_id) values("员工6",3,6);
-insert into t_emp(name,dept_id,position_id) values("员工7",3,7);
-insert into t_emp(name,dept_id,position_id) values("员工8",4,8);
-insert into t_emp(name,dept_id,position_id) values("员工9",4,9);
-insert into t_emp(name,dept_id,position_id) values("员工10",4,10);
+insert into t_emp(name,work_number,dept_id,position_id) values("员工1","NO-001",1,1);
+insert into t_emp(name,work_number,dept_id,position_id) values("员工2","NO-002",1,2);
+insert into t_emp(name,work_number,dept_id,position_id) values("员工3","NO-003",1,3);
+insert into t_emp(name,work_number,dept_id,position_id) values("员工4","NO-004",2,4);
+insert into t_emp(name,work_number,dept_id,position_id) values("员工5","NO-005",2,5);
+insert into t_emp(name,work_number,dept_id,position_id) values("员工6","NO-006",3,6);
+insert into t_emp(name,work_number,dept_id,position_id) values("员工7","NO-007",3,7);
+insert into t_emp(name,work_number,dept_id,position_id) values("员工8","NO-008",4,8);
+insert into t_emp(name,work_number,dept_id,position_id) values("员工9","NO-009",4,9);
+insert into t_emp(name,work_number,dept_id,position_id) values("员工10","NO-010",4,10);
 
 insert into t_check_statistics values(null,2019,8,1,1,0,0,1);
 insert into t_check_statistics values(null,2019,9,0,0,0,0,1);

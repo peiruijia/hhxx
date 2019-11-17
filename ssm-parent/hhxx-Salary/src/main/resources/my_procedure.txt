@@ -1,0 +1,81 @@
+drop procedure if exists hhxx.my_procedure;
+create procedure hhxx.my_procedure()
+begin
+declare my_id int;
+declare my_name varchar(32);
+declare my_year int;
+declare my_month int;
+declare my_achievements double;
+declare my_base_salary double;
+declare my_tax double;
+declare my_count int;
+declare done int default false;
+declare my_cursor cursor for(select statistics_year,statistics_month,emp_id from hhxx.t_check_statistics);
+declare continue handler for not found set done=true;
+open my_cursor;
+myLoop:LOOP
+fetch my_cursor into my_year,my_month,my_id;
+if done then
+leave myLoop;
+end if;
+select base_salary into my_base_salary from t_position where id=(select position_id from t_emp where id=my_id);
+select name into my_name from t_emp where id=my_id;
+select late_count+leaveearly_count+absenteeism_count+absenteeismhalf_count into my_count from t_check_statistics where emp_id=my_id and statistics_year=my_year and statistics_month=my_month;
+if my_count=0 then
+set my_achievements=200;
+else
+select late_count*(-30)+leaveearly_count*(-30)+absenteeism_count*(-100)+absenteeismhalf_count*(-50) into my_achievements from t_check_statistics where emp_id=my_id and statistics_year=my_year and statistics_month=my_month;
+end if;
+if my_base_salary<=3000 then
+set my_tax=my_base_salary*0.03;
+elseif 3000<my_base_salary<=12000 then
+set my_tax=90+(my_base_salary-3000)*0.1;
+elseif 12000<my_base_salary<=25000 then
+set my_tax=990+(my_base_salary-12000)*0.2;
+elseif 25000<my_base_salary<=35000 then
+set my_tax=2290+(my_base_salary-25000)*0.25;
+elseif 35000<my_base_salary<=55000 then
+set my_tax=4790+(my_base_salary-35000)*0.3;
+elseif 55000<my_base_salary<=80000 then
+set my_tax=10790+(my_base_salary-55000)*0.35;
+elseif 80000<my_base_salary then
+set my_tax=19540+(my_base_salary-35000)*0.45;
+end if;
+
+insert into t_salary(id,
+emp_name,
+salary_year,
+salary_month,
+base_salary,
+emp_id
+) 
+values(
+null,
+my_name,
+my_year,
+my_month,
+my_base_salary,
+my_id
+);
+
+update t_salary
+set
+insurance = base_salary*0.105,
+accumulation_fund=base_salary*0.12,
+tax=my_tax,
+achievements=my_achievements,
+really_salary=base_salary-insurance -accumulation_fund-tax+achievements
+where salary_year=my_year and salary_month=my_month and emp_id=my_id;
+
+commit;
+end LOOP myLoop;
+close my_cursor;
+end;
+
+定时器
+
+
+create event if not exists myEvent
+  on schedule every 1 month 
+  on completion PRESERVE
+  do call my_procedure;

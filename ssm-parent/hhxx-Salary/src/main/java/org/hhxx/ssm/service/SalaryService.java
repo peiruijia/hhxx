@@ -14,14 +14,14 @@ public class SalaryService implements ISalaryService {
 	private SalaryMapper salaryMapper;
 	
 	@Override
-	public List<Salary> findByEmp(Integer empId, Integer salaryYear, Integer salaryMonth) {
-		return salaryMapper.findByEmp(empId, salaryYear, salaryMonth);
+	public List<Salary> findByEmp(String workNumber, Integer salaryYear, Integer salaryMonth) {
+		return salaryMapper.findByEmp(workNumber, salaryYear, salaryMonth);
 	}
 
 	@Override
-	public List<Salary> findByAdmin(Integer deptId, Integer positionId, String empName, Integer empId,
+	public List<Salary> findByAdmin(Integer deptId, Integer positionId, String empName, String workNumber,
 			Integer startMonth, Integer endMonth, Integer salaryYear) {
-		return salaryMapper.findByAdmin(deptId, positionId, empName, empId, startMonth, endMonth, salaryYear);
+		return salaryMapper.findByAdmin(deptId, positionId, empName, workNumber, startMonth, endMonth, salaryYear);
 	}
 
 }

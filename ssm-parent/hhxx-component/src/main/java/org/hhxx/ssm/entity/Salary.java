@@ -3,6 +3,7 @@ package org.hhxx.ssm.entity;
 public class Salary {
 
 	private Integer id;
+	private String empName;
 	private Integer salaryYear;
 	private Integer salaryMonth;
 	private Double baseSalary;
@@ -17,10 +18,12 @@ public class Salary {
 		super();
 	}
 
-	public Salary(Integer id, Integer salaryYear, Integer salaryMonth, Double baseSalary, Double insurance,
-			Double accumulationFund, Double tax, Double achievements, Double reallySalary, Integer empId) {
+	public Salary(Integer id, String empName, Integer salaryYear, Integer salaryMonth, Double baseSalary,
+			Double insurance, Double accumulationFund, Double tax, Double achievements, Double reallySalary,
+			Integer empId) {
 		super();
 		this.id = id;
+		this.empName = empName;
 		this.salaryYear = salaryYear;
 		this.salaryMonth = salaryMonth;
 		this.baseSalary = baseSalary;
@@ -34,9 +37,10 @@ public class Salary {
 
 	@Override
 	public String toString() {
-		return "Salary [id=" + id + ", salaryYear=" + salaryYear + ", salaryMonth=" + salaryMonth + ", baseSalary="
-				+ baseSalary + ", insurance=" + insurance + ", accumulationFund=" + accumulationFund + ", tax=" + tax
-				+ ", achievements=" + achievements + ", reallySalary=" + reallySalary + ", empId=" + empId + "]";
+		return "Salary [id=" + id + ", empName=" + empName + ", salaryYear=" + salaryYear + ", salaryMonth="
+				+ salaryMonth + ", baseSalary=" + baseSalary + ", insurance=" + insurance + ", accumulationFund="
+				+ accumulationFund + ", tax=" + tax + ", achievements=" + achievements + ", reallySalary="
+				+ reallySalary + ", empId=" + empId + "]";
 	}
 
 	public Integer getId() {
@@ -45,6 +49,14 @@ public class Salary {
 
 	public void setId(Integer id) {
 		this.id = id;
+	}
+
+	public String getEmpName() {
+		return empName;
+	}
+
+	public void setEmpName(String empName) {
+		this.empName = empName;
 	}
 
 	public Integer getSalaryYear() {

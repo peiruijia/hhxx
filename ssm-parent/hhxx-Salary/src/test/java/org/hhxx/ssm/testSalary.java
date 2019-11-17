@@ -21,14 +21,14 @@ public class testSalary {
 	
 	@Test
 	public void testFindByEmp() {
-		System.out.println(salaryService.findByEmp(1, 2019, 10));
-		System.out.println(salaryService.findByEmp(1, null, 10));
-		System.out.println(salaryService.findByEmp(1, 2019, null));
+		System.out.println(salaryService.findByEmp("NO-001", 2019, 10));
+		System.out.println(salaryService.findByEmp("NO-001", null, 10));
+		System.out.println(salaryService.findByEmp("NO-001", 2019, null));
 	}
 	
 	@Test
 	public void testFindByAdmin() {
-		for(Salary s:salaryService.findByAdmin(1, 1, null, null, null, null, null)) {
+		for(Salary s:salaryService.findByAdmin(null, null, null, "NO-004", null, null, null)) {
 			System.out.println(s);
 		}
 		

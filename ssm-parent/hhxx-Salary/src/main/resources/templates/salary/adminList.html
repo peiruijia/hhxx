@@ -1,0 +1,137 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<link href="../css/style.css" rel="stylesheet" type="text/css" />
+		<script type="text/javascript" src="../js/jquery.js"></script>
+
+	</head>
+
+	<body>
+
+		<div class="place">
+			<span>位置:</span>
+			<ul class="placeul">
+				<li>
+					<a href="#">部门管理</a>
+				</li>
+				<li>
+					<a href="#">部门列表</a>
+				</li>
+			</ul>
+		</div>
+
+		<div class="rightinfo">
+
+			<div class="tools" style="background-color: #949494;">
+				<form action="adminSalarySearch" method="post">
+					<div class="queryform" style="background-color: darkcyan;">
+						<label class="" for="queryDepartmentName">部门</label>
+						<input id="queryDepartmentName" name="deptId" type="text" class="queryinput" />
+					</div>
+					<div class="queryform" style="background-color: darkcyan;">
+						<label class="" for="queryDepartmentName">职位</label>
+						<input id="queryDepartmentName" name="positionId" type="text" class="queryinput" />
+					</div>
+					<div class="queryform" style="background-color: darkcyan;">
+						<label class="" for="queryDepartmentName">员工姓名</label>
+						<input id="queryDepartmentName" name="empName" type="text" class="queryinput" />
+					</div>
+					<div class="queryform" style="background-color: darkcyan;">
+						<label class="" for="queryDepartmentName">员工工号</label>
+						<input id="queryDepartmentName" name="workNumber" type="text" class="queryinput" />
+					</div>
+					<div class="queryform" style="background-color: darkcyan;">
+						<label class="" for="queryDepartmentName">年份</label>
+						<input id="queryDepartmentName" name="salaryYear" type="text" class="queryinput" />
+					</div>
+					<div class="queryform" style="background-color: darkcyan;">
+						<label class="" for="queryDepartmentName">起始月份</label>
+						<input id="queryDepartmentName" name="startMonth" type="text" class="queryinput" />
+					</div>
+					<div class="queryform" style="background-color: darkcyan;">
+						<label class="" for="queryDepartmentName">截止月份</label>
+						<input id="queryDepartmentName" name="endMonth" type="text" class="queryinput" />
+					</div>
+					
+					<div style="background-color: magenta;float: right;">
+						<input type="submit" class="querybtn" value="查询"/>
+					</div>
+				</form>
+			</div>
+
+			<table class="tablelist">
+				<thead>
+					<tr>
+						<th>序号</th>
+						<th>员工姓名</th>
+						<th>年份</th>
+						<th>月份</th>
+						<th>基础工资</th>
+						<th>五险</th>
+						<th>公积金</th>
+						<th>税收</th>
+						<th>绩效</th>
+						<th>实际工资</th>
+						<th>员工姓名</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr th:each="salary,status:${salaryList}">
+						<td th:text="${status.count}"></td>
+						<td th:text="${salary.empName}"></td>
+						<td th:text="${salary.salaryYear}"></td>
+						<td th:text="${salary.salaryMonth}"></td>
+						<td th:text="${salary.baseSalary}"></td>
+						<td th:text="${salary.insurance}"></td>
+						<td th:text="${salary.accumulationFund}"></td>
+						<td th:text="${salary.tax}"></td>
+						<td th:text="${salary.achievements}"></td>
+						<td th:text="${salary.reallySalary}"></td>
+					</tr>
+				</tbody>
+			</table>
+
+			<div class="pagin">
+				<div class="message">共<i class="blue">1256</i>条记录，当前显示第&nbsp;<i class="blue">2&nbsp;</i>页</div>
+				<ul class="paginList">
+					<li class="paginItem">
+						<a href="javascript:;"><span class="pagepre"></span></a>
+					</li>
+					<li class="paginItem">
+						<a href="javascript:;">1</a>
+					</li>
+					<li class="paginItem current">
+						<a href="javascript:;">2</a>
+					</li>
+					<li class="paginItem">
+						<a href="javascript:;">3</a>
+					</li>
+					<li class="paginItem">
+						<a href="javascript:;">4</a>
+					</li>
+					<li class="paginItem">
+						<a href="javascript:;">5</a>
+					</li>
+					<li class="paginItem more">
+						<a href="javascript:;">...</a>
+					</li>
+					<li class="paginItem">
+						<a href="javascript:;">10</a>
+					</li>
+					<li class="paginItem">
+						<a href="javascript:;"><span class="pagenxt"></span></a>
+					</li>
+				</ul>
+			</div>
+
+		</div>
+
+		<script type="text/javascript">
+			$('.tablelist tbody tr:odd').addClass('odd');
+		</script>
+
+	</body>
+
+</html>

@@ -6,7 +6,7 @@
 <mapper namespace="org.hhxx.ssm.mapper.SalaryMapper">
   	
   	<select id="findByEmp" resultType="org.hhxx.ssm.entity.Salary">
-  		select * from t_salary where emp_id= #{empId}
+  		select * from t_salary where emp_id=(select id from t_emp where work_number=#{workNumber})
   			<if test="salaryYear!=null">
   				and salary_year = #{salaryYear}
   			</if>
@@ -27,14 +27,17 @@
   				<if test="empName!=null">
   					and emp_id in (select id from t_emp where name like #{empName})
   				</if>
-  				<if test="empId!=null">
-  					and emp_id = #{empId}
+  				<if test="workNumber!=null">
+  					and emp_id = (select id from t_emp where work_number=#{workNumber})
   				</if>
   				<if test="salaryYear!=null">
   					and salary_year = #{salaryYear}
   				</if>
-  				<if test="startMonth!=null and endMonth!=null">
-  					and #{startMonth} &lt;=salary_month &lt;= #{endMonth}
+  				<if test="startMonth!=null">
+  					and #{startMonth} &lt;=salary_month
+  				</if>
+  				<if test="endMonth!=null">
+  					and salary_month &lt;= #{endMonth}
   				</if>
   			</where>
   	</select>

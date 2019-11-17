@@ -18,6 +18,36 @@ public class SalaryHandler {
 	@Autowired
 	private ISalaryService salaryService;
 	
+	@RequestMapping("/top")
+	public String top() {
+		return "salary/top";
+	}
+	
+	@RequestMapping("/adminLeft")
+	public String adminLeft() {
+		return "salary/adminLeft";
+	}
+	
+	@RequestMapping("/empLeft")
+	public String empLeft() {
+		return "salary/empLeft";
+	}
+	
+	@RequestMapping("/adminList")
+	public String adminList() {
+		return "salary/adminList";
+	}
+	
+	@RequestMapping("/empList")
+	public String empList() {
+		return "salary/empList";
+	}
+	
+	@RequestMapping("/index")
+	public String index() {
+		return "salary/index";
+	}
+	
 	@RequestMapping("/toEmpSalarySearch")
 	public String toEmpSearch() {
 		return "salary/empSalarySearch";
@@ -32,15 +62,18 @@ public class SalaryHandler {
 	public String empSearch(Integer salaryYear,Integer salaryMonth,Map<String,Object> map,HttpServletRequest request) {
 		HttpSession session = request.getSession();
 		Employee emp = (Employee) session.getAttribute("employee");
-		List<Salary> salaryList = salaryService.findByEmp(emp.getId(), salaryYear, salaryMonth);
+		List<Salary> salaryList = salaryService.findByEmp(emp.getWorkNumber(), salaryYear, salaryMonth);
 		map.put("salaryList", salaryList);
 		return "salary/empSalarySearch";
 	}
 	
 	@RequestMapping("/adminSalarySearch")
-	public String adminSearch(Integer deptId,Integer positionId,String empName,Integer empId,Integer salaryYear,Integer startMonth,Integer endMonth,Map<String,Object> map) {
-		List<Salary> salaryList = salaryService.findByAdmin(deptId, positionId, empName, empId, startMonth, endMonth, salaryYear);
+	public String adminSearch(Integer deptId,Integer positionId,String empName,String workNumber,Integer salaryYear,Integer startMonth,Integer endMonth,Map<String,Object> map) {
+		List<Salary> salaryList = salaryService.findByAdmin(deptId, positionId, empName+"%", workNumber, startMonth, endMonth, salaryYear);
+		/*for(Salary s:salaryList) {
+			System.out.println(s);
+		}*/
 		map.put("salaryList", salaryList);
-		return "salary/adminSalarySearch";
+		return "salary/adminList";
 	}
 }
