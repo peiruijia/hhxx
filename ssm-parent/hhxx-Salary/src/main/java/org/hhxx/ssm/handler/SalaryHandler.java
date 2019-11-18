@@ -62,9 +62,11 @@ public class SalaryHandler {
 	public String empSearch(Integer salaryYear,Integer salaryMonth,Map<String,Object> map,HttpServletRequest request) {
 		HttpSession session = request.getSession();
 		Employee emp = (Employee) session.getAttribute("employee");
+		//Employee emp = new Employee();
+		//emp.setWorkNumber("NO-001");
 		List<Salary> salaryList = salaryService.findByEmp(emp.getWorkNumber(), salaryYear, salaryMonth);
 		map.put("salaryList", salaryList);
-		return "salary/empSalarySearch";
+		return "salary/empList";
 	}
 	
 	@RequestMapping("/adminSalarySearch")

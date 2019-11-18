@@ -14,10 +14,10 @@
 			<span>位置:</span>
 			<ul class="placeul">
 				<li>
-					<a href="#">部门管理</a>
+					<a href="#">薪资管理</a>
 				</li>
 				<li>
-					<a href="#">部门列表</a>
+					<a href="#">薪资查询</a>
 				</li>
 			</ul>
 		</div>
@@ -25,51 +25,49 @@
 		<div class="rightinfo">
 
 			<div class="tools" style="background-color: #949494;">
-
-				<div class="queryform" style="background-color: darkcyan;">
-					<label class="" for="queryDepartmentName">员工查询</label>
-					<input id="queryDepartmentName" type="text" class="queryinput" />
-					<input type="button" class="querybtn" value="查询"/>
-				</div>
-				
-				<div style="background-color: magenta;float: right;">
-					asdfasdfasdf
-					asdfasdfasdf
-					asd
-					asdfasdfasdfasdf
-					asdfasdfasdf
-					asdf
-					asdfasdf
-				</div>
-
+				<form action="empSalarySearch" method="post">
+					<div class="queryform" style="background-color: darkcyan;">
+						<label class="" for="queryDepartmentName">年份</label>
+						<input id="queryDepartmentName" name="salaryYear" type="text" class="queryinput" />
+					</div>
+					<div class="queryform" style="background-color: darkcyan;">
+						<label class="" for="queryDepartmentName">月份</label>
+						<input id="queryDepartmentName" name="salaryMonth" type="text" class="queryinput" />
+					</div>
+					<div style="background-color: magenta;float: right;">
+						<input type="submit" class="querybtn" value="查询"/>
+					</div>
+				</form>
 			</div>
 
 			<table class="tablelist">
 				<thead>
 					<tr>
-						<th><input name="" type="checkbox" value="" checked="checked" /></th>
 						<th>序号</th>
-						<th>标题</th>
-						<th>用户</th>
-						<th>籍贯</th>
-						<th>发布时间</th>
-						<th>是否审核</th>
-						<th>操作</th>
+						<th>员工姓名</th>
+						<th>年份</th>
+						<th>月份</th>
+						<th>基础工资</th>
+						<th>五险</th>
+						<th>公积金</th>
+						<th>税收</th>
+						<th>绩效</th>
+						<th>实际工资</th>
+						<th>员工姓名</th>
 					</tr>
 				</thead>
 				<tbody>
-					<tr>
-						<td><input name="" type="checkbox" value="" /></td>
-						<td>20130908</td>
-						<td>王金平幕僚：马英九声明字字见血 人活着没意思</td>
-						<td>admin</td>
-						<td>江苏南京</td>
-						<td>2013-09-09 15:05</td>
-						<td>已审核</td>
-						<td>
-							<a href="#" class="tablelink">查看</a>
-							<a href="#" class="tablelink"> 删除</a>
-						</td>
+					<tr th:each="salary,status:${salaryList}">
+						<td th:text="${status.count}"></td>
+						<td th:text="${salary.empName}"></td>
+						<td th:text="${salary.salaryYear}"></td>
+						<td th:text="${salary.salaryMonth}"></td>
+						<td th:text="${salary.baseSalary}"></td>
+						<td th:text="${salary.insurance}"></td>
+						<td th:text="${salary.accumulationFund}"></td>
+						<td th:text="${salary.tax}"></td>
+						<td th:text="${salary.achievements}"></td>
+						<td th:text="${salary.reallySalary}"></td>
 					</tr>
 				</tbody>
 			</table>
