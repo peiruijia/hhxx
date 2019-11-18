@@ -14,7 +14,10 @@ import javax.servlet.http.HttpSession;
 
 import org.hhxx.ssm.entity.Dept;
 import org.hhxx.ssm.entity.Employee;
+import org.hhxx.ssm.entity.Position;
 import org.hhxx.ssm.entity.Salary;
+import org.hhxx.ssm.service.IDeptService;
+import org.hhxx.ssm.service.IPositionService;
 import org.hhxx.ssm.service.ISalaryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -27,6 +30,12 @@ import com.alibaba.fastjson.JSON;
 public class SalaryHandler {
 	@Autowired
 	private ISalaryService salaryService;
+	
+	@Autowired
+	private IDeptService deptService;
+	
+	@Autowired
+	private IPositionService positionService;
 	
 	@RequestMapping("/top")
 	public String top() {
@@ -87,9 +96,11 @@ public class SalaryHandler {
 			sdeptId=Integer.valueOf(deptId);
 		}
 		Integer spositionId =null;
+		if(positionId !=null) {
 		if(positionId.equals("undefined")) {
 		}else {
 			spositionId=Integer.valueOf(positionId);
+		}
 		}
 		List<Salary> salaryList = salaryService.findByAdmin(sdeptId, spositionId, empName+"%", workNumber, startMonth, endMonth, salaryYear);
 		map.put("salaryList", salaryList);
@@ -101,16 +112,6 @@ public class SalaryHandler {
 	private void deptList(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		List<Dept> deptList = deptService.findAll();
-		/*Dept dept1 = new Dept(1,"部门1",null,null);
-		Dept dept2 = new Dept(2,"部门2",null,null);
-		Dept dept3 = new Dept(3,"部门3",null,null);
-		Dept dept4 = new Dept(4,"部门4",null,null);
-		List<Dept> deptList = new ArrayList<Dept>();
-		deptList.add(dept1);
-		deptList.add(dept2);
-		deptList.add(dept3);
-		deptList.add(dept4);
-		*/
 		Dept dept0 = new Dept(null,"",null,null);
 		deptList.add(0,dept0);
 		request.setCharacterEncoding("UTF-8");
@@ -132,7 +133,7 @@ public class SalaryHandler {
 		}else {
 			deptId=Integer.valueOf(sdeptId);
 		}
-		List<Position> positionList = positionService.findByDeptId();
+		List<Position> positionList = positionService.findByDeptId(deptId);
 		Position position0 = new Position(null,"",null,null,null,null);
 		positionList.add(0,position0);
 		request.setCharacterEncoding("UTF-8");
