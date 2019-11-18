@@ -1,17 +1,27 @@
 package org.hhxx.ssm.handler;
 
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+
+import org.hhxx.ssm.entity.Dept;
 import org.hhxx.ssm.entity.Employee;
 import org.hhxx.ssm.entity.Salary;
 import org.hhxx.ssm.service.ISalaryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
+
+import com.alibaba.fastjson.JSON;
 
 @Controller
 public class SalaryHandler {
@@ -70,12 +80,66 @@ public class SalaryHandler {
 	}
 	
 	@RequestMapping("/adminSalarySearch")
-	public String adminSearch(Integer deptId,Integer positionId,String empName,String workNumber,Integer salaryYear,Integer startMonth,Integer endMonth,Map<String,Object> map) {
-		List<Salary> salaryList = salaryService.findByAdmin(deptId, positionId, empName+"%", workNumber, startMonth, endMonth, salaryYear);
-		/*for(Salary s:salaryList) {
-			System.out.println(s);
-		}*/
+	public String adminSearch(String deptId,String positionId,String empName,String workNumber,Integer salaryYear,Integer startMonth,Integer endMonth,Map<String,Object> map) {
+		Integer sdeptId=null;
+		if(deptId.equals("undefined")) {
+		}else {
+			sdeptId=Integer.valueOf(deptId);
+		}
+		Integer spositionId =null;
+		if(positionId.equals("undefined")) {
+		}else {
+			spositionId=Integer.valueOf(positionId);
+		}
+		List<Salary> salaryList = salaryService.findByAdmin(sdeptId, spositionId, empName+"%", workNumber, startMonth, endMonth, salaryYear);
 		map.put("salaryList", salaryList);
 		return "salary/adminList";
+	}
+	
+	@RequestMapping("/deptList")
+	@ResponseBody
+	private void deptList(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		List<Dept> deptList = deptService.findAll();
+		/*Dept dept1 = new Dept(1,"部门1",null,null);
+		Dept dept2 = new Dept(2,"部门2",null,null);
+		Dept dept3 = new Dept(3,"部门3",null,null);
+		Dept dept4 = new Dept(4,"部门4",null,null);
+		List<Dept> deptList = new ArrayList<Dept>();
+		deptList.add(dept1);
+		deptList.add(dept2);
+		deptList.add(dept3);
+		deptList.add(dept4);
+		*/
+		Dept dept0 = new Dept(null,"",null,null);
+		deptList.add(0,dept0);
+		request.setCharacterEncoding("UTF-8");
+		response.setContentType("application/json;charset=UTF-8");
+		PrintWriter out = response.getWriter();
+		String json = JSON.toJSONString(deptList);
+		out.write(json);
+		out.close();
+	}
+	
+	@RequestMapping("/positionList")
+	@ResponseBody
+	private void positionList(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		String sdeptId = request.getParameter("deptId");
+		Integer deptId=null;
+		if(sdeptId.equals("undefined")) {
+			
+		}else {
+			deptId=Integer.valueOf(sdeptId);
+		}
+		List<Position> positionList = positionService.findByDeptId();
+		Position position0 = new Position(null,"",null,null,null,null);
+		positionList.add(0,position0);
+		request.setCharacterEncoding("UTF-8");
+		response.setContentType("application/json;charset=UTF-8");
+		PrintWriter out = response.getWriter();
+		String json = JSON.toJSONString(positionList);
+		out.write(json);
+		out.close();
 	}
 }

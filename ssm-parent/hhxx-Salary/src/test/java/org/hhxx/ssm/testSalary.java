@@ -28,7 +28,7 @@ public class testSalary {
 	
 	@Test
 	public void testFindByAdmin() {
-		for(Salary s:salaryService.findByAdmin(null, null, null, "NO-004", null, null, null)) {
+		for(Salary s:salaryService.findByAdmin(1, null, "%", "", null, null, null)) {
 			System.out.println(s);
 		}
 		

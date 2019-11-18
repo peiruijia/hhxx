@@ -24,10 +24,10 @@
   				<if test="positionId!=null">
   					and emp_id in (select id from t_emp where position_id = #{positionId})
   				</if>
-  				<if test="empName!=null">
+  				<if test="empName!=null and empName!=''">
   					and emp_id in (select id from t_emp where name like #{empName})
   				</if>
-  				<if test="workNumber!=null">
+  				<if test="workNumber!=null and workNumber!=''">
   					and emp_id = (select id from t_emp where work_number=#{workNumber})
   				</if>
   				<if test="salaryYear!=null">

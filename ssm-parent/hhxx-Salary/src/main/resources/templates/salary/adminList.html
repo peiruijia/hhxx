@@ -4,7 +4,41 @@
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 		<link href="../css/style.css" rel="stylesheet" type="text/css" />
-		<script type="text/javascript" src="../js/jquery.js"></script>
+		<script type="text/javascript" src="../js/jquery-1.8.3.min.js"></script>
+		<script>
+
+		$(function(){
+			var url = "deptList";
+			$.post(
+				url,
+				{"time":new Date()},
+				function(data){
+					$(data).each(function(index,deptList){
+						$("#deptId").append(
+							"<option value="+deptList.id+">"+deptList.name+"</option>"
+						);
+					});
+				},
+				"json"
+			);
+		});
+		
+		function change(){
+			var url = "positionList";
+			$.post(
+				url,
+				{"deptId":$("#deptId option:selected").val(),"time":new Date()},
+				function(data){
+					$(data).each(function(index,positionList){
+						$("#positionId").append(
+							"<option value="+position.id+">"+position.name+"</option>"
+						);
+					});
+				},
+				"json"
+			);
+		};
+		</script>
 
 	</head>
 
@@ -28,11 +62,11 @@
 				<form action="adminSalarySearch" method="post">
 					<div class="queryform" style="background-color: darkcyan;">
 						<label class="" for="queryDepartmentName">部门</label>
-						<input id="queryDepartmentName" name="deptId" type="text" class="queryinput" />
+						<select id="deptId" name="deptId" onchange="change()"></select>
 					</div>
 					<div class="queryform" style="background-color: darkcyan;">
 						<label class="" for="queryDepartmentName">职位</label>
-						<input id="queryDepartmentName" name="positionId" type="text" class="queryinput" />
+						<select id="positionId" name="positionId"></select>
 					</div>
 					<div class="queryform" style="background-color: darkcyan;">
 						<label class="" for="queryDepartmentName">员工姓名</label>
